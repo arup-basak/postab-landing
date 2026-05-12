@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Caveat, Bodoni_Moda } from "next/font/google";
+import { Bodoni_Moda, Caveat, Geist, Geist_Mono } from "next/font/google";
+import { Noise } from "@/components/ui/noise";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,7 +27,9 @@ const bodoniModa = Bodoni_Moda({
 });
 
 export const metadata: Metadata = {
-  title: "Postab",
+  title: "postab · address your apps like a poweruser",
+  description:
+    "postab replaces ⌘+Tab with a leader key and a short sequence. Hold Right ⌘, type d to land on Discord. No cycling, no search, no mouse.",
 };
 
 export default function RootLayout({
@@ -39,7 +42,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} ${bodoniModa.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="relative min-h-full flex flex-col">
+        <Noise />
+        {children}
+      </body>
     </html>
   );
 }
