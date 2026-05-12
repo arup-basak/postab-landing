@@ -15,7 +15,7 @@ export const SITE: {
 } = {
   name: "postab",
   tagline: "Address your apps like a poweruser.",
-  downloadHref: "#download",
+  downloadHref: "/download",
   requirements: [
     "macOS 26 Tahoe or later",
     "Apple Silicon and Intel",

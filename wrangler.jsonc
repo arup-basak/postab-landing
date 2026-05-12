@@ -7,9 +7,24 @@
   "assets": {
     "directory": "dist/client",
     "not_found_handling": "none",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
   },
   "images": {
-    "binding": "IMAGES"
-  }
+    "binding": "IMAGES",
+  },
+  "r2_buckets": [
+    {
+      "binding": "RELEASES",
+      "bucket_name": "postab-releases",
+    },
+    {
+      "bucket_name": "postab-releases",
+      "binding": "postab_releases",
+      "remote": true,
+    },
+  ],
+  "vars": {
+    "LATEST_DMG_KEY": "Postab-latest.app",
+    "LATEST_DMG_FILENAME": "postab.app",
+  },
 }

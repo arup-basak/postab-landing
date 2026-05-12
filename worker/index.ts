@@ -24,6 +24,21 @@ interface Env {
       };
     };
   };
+  RELEASES: {
+    get(
+      key: string,
+      options?: { onlyIf?: Headers },
+    ): Promise<R2ObjectBody | null>;
+  };
+  LATEST_DMG_KEY: string;
+  LATEST_DMG_FILENAME: string;
+}
+
+interface R2ObjectBody {
+  body: ReadableStream | null;
+  size: number;
+  httpEtag: string;
+  writeHttpMetadata(headers: Headers): void;
 }
 
 interface ExecutionContext {
@@ -37,6 +52,48 @@ interface ExecutionContext {
 // dangerouslyAllowSVG: true in next.config.js and uncomment below:
 // const imageConfig: ImageConfig = { dangerouslyAllowSVG: true };
 
+async function handleDownload(request: Request, env: Env): Promise<Response> {
+  if (request.method !== "GET" && request.method !== "HEAD") {
+    return new Response("Method Not Allowed", {
+      status: 405,
+      headers: { Allow: "GET, HEAD" },
+    });
+  }
+
+  const object = await env.RELEASES.get(env.LATEST_DMG_KEY, {
+    onlyIf: request.headers,
+  });
+
+  if (!object) {
+    return new Response("Not Found", { status: 404 });
+  }
+
+  // No body when the client's conditional request matched (304 Not Modified).
+  if (!("body" in object) || object.body === null) {
+    const notModified = new Headers();
+    object.writeHttpMetadata(notModified);
+    notModified.set("etag", object.httpEtag);
+    return new Response(null, { status: 304, headers: notModified });
+  }
+
+  const headers = new Headers();
+  object.writeHttpMetadata(headers);
+  headers.set("etag", object.httpEtag);
+  headers.set("content-type", "application/x-apple-diskimage");
+  headers.set(
+    "content-disposition",
+    `attachment; filename="${env.LATEST_DMG_FILENAME}"`,
+  );
+  headers.set("cache-control", "public, max-age=300");
+
+  if (request.method === "HEAD") {
+    headers.set("content-length", String(object.size));
+    return new Response(null, { status: 200, headers });
+  }
+
+  return new Response(object.body, { status: 200, headers });
+}
+
 export default {
   async fetch(
     request: Request,
@@ -44,6 +101,10 @@ export default {
     ctx: ExecutionContext,
   ): Promise<Response> {
     const url = new URL(request.url);
+
+    if (url.pathname === "/download") {
+      return handleDownload(request, env);
+    }
 
     // Image optimization via Cloudflare Images binding.
     // The parseImageParams validation inside handleImageOptimization

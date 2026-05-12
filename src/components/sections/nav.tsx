@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { AppleIcon } from "@/components/ui/apple-icon";
+import { LogoMark } from "@/components/ui/logo";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { SITE } from "@/constants/site";
 
@@ -32,6 +33,7 @@ export const Nav = () => {
     >
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="group flex items-center gap-2">
+          <LogoMark size={22} />
           <span className="font-display text-xl leading-none tracking-tight">
             postab
           </span>

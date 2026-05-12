@@ -30,6 +30,12 @@ export const metadata: Metadata = {
   title: "postab · address your apps like a poweruser",
   description:
     "postab replaces ⌘+Tab with a leader key and a short sequence. Hold Right ⌘, type d to land on Discord. No cycling, no search, no mouse.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+  },
 };
 
 export default function RootLayout({
