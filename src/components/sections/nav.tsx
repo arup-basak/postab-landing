@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { AppleIcon } from "@/components/ui/apple-icon";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { SITE } from "@/constants/site";
 
 export const Nav = () => {
@@ -59,6 +60,7 @@ export const Nav = () => {
           Download
         </Link>
       </div>
+      <ScrollProgress />
     </motion.header>
   );
 };

@@ -1,21 +1,47 @@
 "use client";
 
 import { PlayIcon } from "@phosphor-icons/react/dist/ssr";
-import { useState } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
+import { useRef, useState } from "react";
 import { SITE } from "@/constants/site";
 
 export const HeroShowcase = () => {
   const [failed, setFailed] = useState(false);
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
   const { kind, src, poster, alt } = SITE.showcase;
 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const smooth = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 24,
+    mass: 0.3,
+  });
+  const yRaw = useTransform(smooth, [0, 1], [60, -60]);
+  const rotateRaw = useTransform(smooth, [0, 1], [3.5, -3.5]);
+  const y = reduce ? 0 : yRaw;
+  const rotateX = reduce ? 0 : rotateRaw;
+
   return (
-    <div className="relative">
+    <div ref={ref} className="relative [perspective:1200px]">
       <div
         aria-hidden
         className="-z-1 pointer-events-none absolute inset-x-4 top-1/4 bottom-4 rounded-full bg-primary/10 blur-3xl"
       />
 
-      <div className="relative overflow-hidden rounded-2xl border border-border surface-gradient bg-surface/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_30px_80px_-20px_rgba(0,0,0,0.6)]">
+      <motion.div
+        style={{ y, rotateX, transformStyle: "preserve-3d" }}
+        className="relative overflow-hidden rounded-2xl border border-border surface-gradient bg-surface/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_30px_80px_-20px_rgba(0,0,0,0.6)]"
+      >
         <div className="flex items-center justify-between gap-3 border-b border-border/60 bg-surface-2/40 px-4 py-2.5">
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -46,6 +72,7 @@ export const HeroShowcase = () => {
           )}
 
           {!failed && kind === "image" && (
+            // biome-ignore lint/performance/noImgElement: showcase media is a fixed asset with onError fallback; next/image adds no value here
             <img
               src={src}
               alt={alt}
@@ -68,7 +95,7 @@ export const HeroShowcase = () => {
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

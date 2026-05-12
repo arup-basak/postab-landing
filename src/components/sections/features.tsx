@@ -24,10 +24,13 @@ export const Features = () => {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {FEATURES.map((f, i) => {
             const Icon = f.icon;
+            const from = i < 2 ? (i === 0 ? "right" : "left") : "up";
             return (
               <Reveal
                 key={f.title}
-                delay={(i % 6) * 0.04}
+                delay={(i % 6) * 0.05}
+                from={from}
+                distance={i < 2 ? 28 : 14}
                 className={cn(
                   "group relative flex flex-col gap-4 rounded-2xl border border-border surface-gradient bg-surface/30 p-6 transition-colors hover:border-border-strong",
                   f.large ? "lg:col-span-3" : "lg:col-span-2",

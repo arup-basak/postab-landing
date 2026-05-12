@@ -1,6 +1,7 @@
 import { Keycap } from "@/components/ui/keycap";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
+import { StepNumeral } from "@/components/ui/step-numeral";
 import { HOW_IT_WORKS } from "@/constants/how-it-works";
 
 export const HowItWorks = () => {
@@ -34,9 +35,7 @@ export const HowItWorks = () => {
               delay={0.06 * i}
               className="relative flex flex-col gap-5 rounded-2xl border border-border surface-gradient bg-surface/30 p-7"
             >
-              <span className="font-display text-7xl leading-none text-foreground/15">
-                {step.number}
-              </span>
+              <StepNumeral number={step.number} />
               <h3 className="font-sans text-xl text-foreground">
                 {step.title}
               </h3>
