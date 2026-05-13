@@ -21,7 +21,7 @@ export const HOW_IT_WORKS: Step[] = [
   {
     number: "03",
     title: "Act",
-    body: "Release to focus the app. Hold Control before releasing to quit it. Hold Shift to hide it. Same sequence, different modifier, different outcome.",
-    keys: ["Release", "⌃ Quit", "⇧ Hide"],
+    body: "Release to focus the app. Hold Control before releasing to quit it. Hold Shift to hide it. Tap the leader without typing to bounce back to your last app. Same gesture, different outcomes.",
+    keys: ["Release", "Tap = back", "⌃ Quit", "⇧ Hide"],
   },
 ];

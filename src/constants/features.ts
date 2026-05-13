@@ -1,13 +1,17 @@
 import type { Icon } from "@phosphor-icons/react";
 import {
+  ArrowBendUpLeftIcon,
   ArrowsClockwiseIcon,
+  BrowsersIcon,
   CircleHalfIcon,
+  ClockIcon,
   CommandIcon,
   CompassIcon,
   EyeSlashIcon,
   GaugeIcon,
   KeyboardIcon,
   LightningIcon,
+  RepeatIcon,
   ShieldCheckIcon,
   StackIcon,
   SwapIcon,
@@ -15,11 +19,16 @@ import {
   TreeStructureIcon,
 } from "@phosphor-icons/react/dist/ssr";
 
+export type FeatureDemo =
+  | { kind: "chips"; items: string[]; active?: number }
+  | { kind: "keycaps"; items: string[] };
+
 export type Feature = {
   icon: Icon;
   title: string;
   body: string;
   large?: boolean;
+  demo?: FeatureDemo;
 };
 
 export const FEATURES: Feature[] = [
@@ -51,6 +60,18 @@ export const FEATURES: Feature[] = [
     body: "Lives in the menu bar. No Dock icon, no background UI. Shows up when you hold the leader key, disappears the moment you release.",
   },
   {
+    icon: SwapIcon,
+    title: "Coexists with ⌘+Tab",
+    body: "Keep ⌘+Tab for the times you want to cycle. Use postab when you already know where you are going. Two gestures, side by side, neither in the way.",
+    large: true,
+  },
+  {
+    icon: TargetIcon,
+    title: "Knows what is focused",
+    body: "The overlay marks the app you are currently on. Even with a dozen apps mapped, your reference point is never more than a glance away.",
+    large: true,
+  },
+  {
     icon: CommandIcon,
     title: "macOS native, no overhead",
     body: "Written in Swift with SwiftUI. No Electron, no helper processes. Intercepts at the system level via CGEventTap.",
@@ -66,16 +87,17 @@ export const FEATURES: Feature[] = [
     body: "When the overlay is closed postab does nothing. When active it traverses a trie in memory. The overhead is unmeasurable.",
   },
   {
-    icon: SwapIcon,
-    title: "Coexists with ⌘+Tab",
-    body: "Keep ⌘+Tab for the times you want to cycle. Use postab when you already know where you are going. Two gestures, side by side, neither in the way.",
+    icon: ArrowBendUpLeftIcon,
+    title: "Tap to bounce back",
+    body: "Tap the leader and release without typing. postab jumps to your last app. Tap again and you are back where you started. Right ⌘ on its own is now the fastest two-app dance on macOS.",
     large: true,
   },
   {
-    icon: TargetIcon,
-    title: "Knows what is focused",
-    body: "The overlay marks the app you are currently on. Even with a dozen apps mapped, your reference point is never more than a glance away.",
+    icon: ClockIcon,
+    title: "Recents, surfaced",
+    body: "Hold the leader with nothing typed and the overlay floats your last five apps as chips above the grid. Click one, or keep typing to filter. Your most recent move is never out of reach.",
     large: true,
+    demo: { kind: "chips", items: ["Code", "Safari", "Figma", "Mail", "Notion"], active: 0 },
   },
   {
     icon: StackIcon,
@@ -91,5 +113,18 @@ export const FEATURES: Feature[] = [
     icon: CompassIcon,
     title: "Guided on first launch",
     body: "A short in-app tour covers the leader key, the three modes, and your auto-assigned mappings. Built for the first five minutes.",
+  },
+  {
+    icon: RepeatIcon,
+    title: "Press again to hide",
+    body: "Type an app's key while it is already frontmost and postab hides it instead of focusing again. Same gesture, opposite outcome. No second shortcut to learn.",
+    large: true,
+  },
+  {
+    icon: BrowsersIcon,
+    title: "Each window, its own address",
+    body: "Apps with more than one window can expand into per-window keys. Chrome with three windows becomes c1, c2, c3. Land in the exact window you wanted, not just the app.",
+    large: true,
+    demo: { kind: "keycaps", items: ["c1", "c2", "c3"] },
   },
 ];
