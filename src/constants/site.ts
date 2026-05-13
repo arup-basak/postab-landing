@@ -30,7 +30,7 @@ export const SITE: {
   nav: [
     { label: "How it works", href: "#how" },
     { label: "Features", href: "#features" },
-    { label: "Privacy", href: "#privacy" },
+    { label: "Gestures", href: "#gestures" },
     { label: "Pricing", href: "#pricing" },
     { label: "FAQ", href: "#faq" },
   ],

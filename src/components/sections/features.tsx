@@ -1,47 +1,7 @@
-import { Keycap } from "@/components/ui/keycap";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
-import type { Feature } from "@/constants/features";
 import { FEATURES } from "@/constants/features";
 import { cn } from "@/lib/utils";
-
-const FeatureDemo = ({ demo }: { demo: NonNullable<Feature["demo"]> }) => {
-  if (demo.kind === "chips") {
-    return (
-      <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-2">
-        {demo.items.map((item, i) => (
-          <span
-            key={item}
-            className={cn(
-              "inline-flex items-center rounded-full border px-2.5 py-1 font-sans text-[11px] tracking-tight",
-              i === demo.active
-                ? "border-[color-mix(in_oklab,var(--color-primary)_45%,transparent)] bg-[color-mix(in_oklab,var(--color-primary)_14%,transparent)] text-foreground"
-                : "border-border bg-surface-2/60 text-muted",
-            )}
-          >
-            <span
-              className={cn(
-                "mr-1.5 inline-block h-1.5 w-1.5 rounded-full",
-                i === demo.active ? "bg-primary" : "bg-border-strong",
-              )}
-            />
-            {item}
-          </span>
-        ))}
-      </div>
-    );
-  }
-
-  return (
-    <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
-      {demo.items.map((item) => (
-        <Keycap key={item} size="sm" tone="primary">
-          {item}
-        </Keycap>
-      ))}
-    </div>
-  );
-};
 
 export const Features = () => {
   return (
@@ -94,7 +54,6 @@ export const Features = () => {
                 <p className="font-sans text-sm leading-relaxed text-muted">
                   {f.body}
                 </p>
-                {f.demo ? <FeatureDemo demo={f.demo} /> : null}
               </Reveal>
             );
           })}

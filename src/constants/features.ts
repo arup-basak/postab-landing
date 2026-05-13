@@ -1,34 +1,20 @@
 import type { Icon } from "@phosphor-icons/react";
 import {
-  ArrowBendUpLeftIcon,
   ArrowsClockwiseIcon,
-  BrowsersIcon,
   CircleHalfIcon,
-  ClockIcon,
   CommandIcon,
   CompassIcon,
-  EyeSlashIcon,
-  GaugeIcon,
   KeyboardIcon,
   LightningIcon,
-  RepeatIcon,
-  ShieldCheckIcon,
-  StackIcon,
   SwapIcon,
-  TargetIcon,
   TreeStructureIcon,
 } from "@phosphor-icons/react/dist/ssr";
-
-export type FeatureDemo =
-  | { kind: "chips"; items: string[]; active?: number }
-  | { kind: "keycaps"; items: string[] };
 
 export type Feature = {
   icon: Icon;
   title: string;
   body: string;
   large?: boolean;
-  demo?: FeatureDemo;
 };
 
 export const FEATURES: Feature[] = [
@@ -50,26 +36,14 @@ export const FEATURES: Feature[] = [
     body: "A prefix trie resolves sequences as you type. f and fa coexist without ambiguity. The tree is yours to define.",
   },
   {
+    icon: SwapIcon,
+    title: "Lives next to ⌘+Tab",
+    body: "Keep ⌘+Tab for the moments you want to cycle. Use postab when you already know where you are going. Both gestures, side by side.",
+  },
+  {
     icon: KeyboardIcon,
     title: "Zero config to start",
     body: "Launch postab. It assigns keys to your running apps automatically. Override anything from the settings panel later.",
-  },
-  {
-    icon: EyeSlashIcon,
-    title: "Invisible until needed",
-    body: "Lives in the menu bar. No Dock icon, no background UI. Shows up when you hold the leader key, disappears the moment you release.",
-  },
-  {
-    icon: SwapIcon,
-    title: "Coexists with ⌘+Tab",
-    body: "Keep ⌘+Tab for the times you want to cycle. Use postab when you already know where you are going. Two gestures, side by side, neither in the way.",
-    large: true,
-  },
-  {
-    icon: TargetIcon,
-    title: "Knows what is focused",
-    body: "The overlay marks the app you are currently on. Even with a dozen apps mapped, your reference point is never more than a glance away.",
-    large: true,
   },
   {
     icon: CommandIcon,
@@ -77,54 +51,13 @@ export const FEATURES: Feature[] = [
     body: "Written in Swift with SwiftUI. No Electron, no helper processes. Intercepts at the system level via CGEventTap.",
   },
   {
-    icon: ShieldCheckIcon,
-    title: "Privacy by construction",
-    body: "Keystrokes are captured only while the leader key is held and discarded the instant it is released.",
-  },
-  {
-    icon: GaugeIcon,
-    title: "Idle by default",
-    body: "When the overlay is closed postab does nothing. When active it traverses a trie in memory. The overhead is unmeasurable.",
-  },
-  {
-    icon: ArrowBendUpLeftIcon,
-    title: "Tap to bounce back",
-    body: "Tap the leader and release without typing. postab jumps to your last app. Tap again and you are back where you started. Right ⌘ on its own is now the fastest two-app dance on macOS.",
-    large: true,
-  },
-  {
-    icon: ClockIcon,
-    title: "Recents, surfaced",
-    body: "Hold the leader with nothing typed and the overlay floats your last five apps as chips above the grid. Click one, or keep typing to filter. Your most recent move is never out of reach.",
-    large: true,
-    demo: { kind: "chips", items: ["Code", "Safari", "Figma", "Mail", "Notion"], active: 0 },
-  },
-  {
-    icon: StackIcon,
-    title: "Floating overlay",
-    body: "Sits above the menu bar. Shows mapped apps and the remaining key hints, narrowing live as you type.",
-  },
-  {
     icon: CircleHalfIcon,
     title: "Light and dark, both tuned",
-    body: "Overlay and settings panel render natively in either appearance. Follows macOS automatically, or pin it to one mode if you prefer.",
+    body: "Overlay and settings panel render natively in either appearance. Follows macOS, or pin it to one mode.",
   },
   {
     icon: CompassIcon,
     title: "Guided on first launch",
     body: "A short in-app tour covers the leader key, the three modes, and your auto-assigned mappings. Built for the first five minutes.",
-  },
-  {
-    icon: RepeatIcon,
-    title: "Press again to hide",
-    body: "Type an app's key while it is already frontmost and postab hides it instead of focusing again. Same gesture, opposite outcome. No second shortcut to learn.",
-    large: true,
-  },
-  {
-    icon: BrowsersIcon,
-    title: "Each window, its own address",
-    body: "Apps with more than one window can expand into per-window keys. Chrome with three windows becomes c1, c2, c3. Land in the exact window you wanted, not just the app.",
-    large: true,
-    demo: { kind: "keycaps", items: ["c1", "c2", "c3"] },
   },
 ];
