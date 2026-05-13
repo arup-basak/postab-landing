@@ -10,6 +10,18 @@ export const FAQ: Faq[] = [
     a: "No. postab is idle when the overlay is closed. When active it traverses a trie in memory. The overhead is unmeasurable.",
   },
   {
+    q: "Does it conflict with ⌘+Tab?",
+    a: "No. ⌘+Tab still works exactly as it does today. postab listens on Right ⌘ by default, so the classic switcher and postab live side by side. Use whichever fits the moment.",
+  },
+  {
+    q: "Does postab support light mode?",
+    a: "Yes. The overlay and the settings panel render natively in light and dark. It follows your macOS appearance by default, or pin it to one mode from settings.",
+  },
+  {
+    q: "How do I learn the mappings?",
+    a: "A short guided tour runs on first launch. It introduces the leader key, the three action modes, and walks through your auto-assigned mappings. Muscle memory tends to take about a day.",
+  },
+  {
     q: "Is there a free trial?",
     a: "Yes. The Monthly plan is cancellable any time, and a short trial is available before billing begins. The Lifetime plan is a single payment.",
   },

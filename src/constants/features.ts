@@ -1,13 +1,17 @@
 import type { Icon } from "@phosphor-icons/react";
 import {
   ArrowsClockwiseIcon,
+  CircleHalfIcon,
   CommandIcon,
+  CompassIcon,
   EyeSlashIcon,
   GaugeIcon,
   KeyboardIcon,
   LightningIcon,
   ShieldCheckIcon,
   StackIcon,
+  SwapIcon,
+  TargetIcon,
   TreeStructureIcon,
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -62,8 +66,30 @@ export const FEATURES: Feature[] = [
     body: "When the overlay is closed postab does nothing. When active it traverses a trie in memory. The overhead is unmeasurable.",
   },
   {
+    icon: SwapIcon,
+    title: "Coexists with ⌘+Tab",
+    body: "Keep ⌘+Tab for the times you want to cycle. Use postab when you already know where you are going. Two gestures, side by side, neither in the way.",
+    large: true,
+  },
+  {
+    icon: TargetIcon,
+    title: "Knows what is focused",
+    body: "The overlay marks the app you are currently on. Even with a dozen apps mapped, your reference point is never more than a glance away.",
+    large: true,
+  },
+  {
     icon: StackIcon,
     title: "Floating overlay",
     body: "Sits above the menu bar. Shows mapped apps and the remaining key hints, narrowing live as you type.",
+  },
+  {
+    icon: CircleHalfIcon,
+    title: "Light and dark, both tuned",
+    body: "Overlay and settings panel render natively in either appearance. Follows macOS automatically, or pin it to one mode if you prefer.",
+  },
+  {
+    icon: CompassIcon,
+    title: "Guided on first launch",
+    body: "A short in-app tour covers the leader key, the three modes, and your auto-assigned mappings. Built for the first five minutes.",
   },
 ];

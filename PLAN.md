@@ -9,6 +9,8 @@
 - **Leader key trigger** — hold Right ⌘ (or any configurable modifier) to activate; release to dismiss
 - **Floating overlay** — appears above the menu bar showing all mapped apps and their remaining key hints as you type
 - **1–2 keystroke app addressing** — `d` → Discord, `fa` → Firefox, `fb` → Finder; no cycling, no search
+- **⌘+Tab integration** — keeps the familiar ⌘+Tab gesture working alongside postab; switch between addressing mode and the classic MRU switcher without conflict
+- **Active window awareness** — the overlay knows which app and window is currently focused; the active app is visually distinguished so you always have a reference point
 
 ### Actions
 - **Switch mode** (default) — bring any app to focus instantly
@@ -22,6 +24,15 @@
 - **Configurable leader key** — Right ⌘, Left ⌥, Right ⌃, or any supported modifier
 - **App blacklist** — exclude any app from the overlay entirely
 - **Launch at login** — single toggle, no launchd wrangling
+
+### Appearance
+- **Light & dark mode** — overlay and settings panel render natively in both light and dark appearance
+- **Follows system appearance** — auto-switches with macOS appearance settings, or pin to light/dark manually
+- **Tuned for both modes** — colors, contrast, and the mode-tint overlays (red for quit, yellow for hide) are calibrated for legibility in either theme
+
+### Onboarding
+- **Built-in guides** — short, in-app walkthroughs introduce the leader key, the three action modes, and how to customize mappings
+- **First-launch tour** — guided setup covers Accessibility permission, leader-key choice, and reviewing auto-assigned keys before you start using it
 
 ### Distribution & Updates
 - **Auto-updates via Sparkle** — no App Store, no manual downloads
