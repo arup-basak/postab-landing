@@ -10,7 +10,7 @@ import { SITE } from "@/constants/site";
 
 export const Hero = () => {
   return (
-    <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28">
+    <section className="relative flex min-h-svh flex-col justify-center overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-28">
       <div
         aria-hidden
         className="-z-1 pointer-events-none absolute inset-x-0 top-0 h-[70%] [background:radial-gradient(55%_60%_at_18%_15%,color-mix(in_oklab,var(--color-primary)_18%,transparent),transparent_70%)]"
@@ -21,7 +21,7 @@ export const Hero = () => {
       />
       <div
         aria-hidden
-        className="-z-1 pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-background"
+        className="-z-1 pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-linear-to-b from-transparent to-background"
       />
 
       <div className="relative mx-auto grid max-w-6xl items-end gap-12 px-6 lg:grid-cols-[1.1fr_0.9fr]">

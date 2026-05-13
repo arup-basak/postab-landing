@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bodoni_Moda, Caveat, Geist, Geist_Mono } from "next/font/google";
 import { Noise } from "@/components/ui/noise";
 import "./globals.css";
+import { Nav } from "@/components/sections/nav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,6 +51,7 @@ export default function RootLayout({
     >
       <body className="relative min-h-full flex flex-col">
         <Noise />
+        <Nav />
         {children}
       </body>
     </html>
