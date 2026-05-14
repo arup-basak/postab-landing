@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Caveat, Geist, Geist_Mono } from "next/font/google";
+import { ModalProvider } from "@/components/ui/modal-provider";
 import { Noise } from "@/components/ui/noise";
 import "./globals.css";
 import { Nav } from "@/components/sections/nav";
@@ -193,6 +194,7 @@ export default function RootLayout({
         <Noise />
         <Nav />
         {children}
+        <ModalProvider />
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON.stringify of a static object literal — no user input
