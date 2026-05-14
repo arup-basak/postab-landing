@@ -48,7 +48,6 @@ export const InstallModal = ({ open, onClose, downloadHref }: Props) => {
   const reduce = useReducedMotion();
   const [copied, setCopied] = useState(false);
   const [dlState, setDlState] = useState<"idle" | "pending" | "started">("idle");
-  const overlayRef = useRef<HTMLDivElement>(null);
   const copyTimer = useRef<ReturnType<typeof setTimeout>>(null);
   const dlTimer = useRef<ReturnType<typeof setTimeout>>(null);
 
@@ -98,7 +97,6 @@ export const InstallModal = ({ open, onClose, downloadHref }: Props) => {
     <AnimatePresence>
       {open && (
         <motion.div
-          ref={overlayRef}
           role="dialog"
           aria-modal="true"
           aria-label="Installation instructions"
@@ -107,10 +105,12 @@ export const InstallModal = ({ open, onClose, downloadHref }: Props) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.22 }}
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
-          onClick={(e) => e.target === overlayRef.current && onClose()}
         >
-          {/* backdrop */}
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-md" />
+          {/* backdrop — clicking outside closes the modal */}
+          <div
+            className="absolute inset-0 bg-background/80 backdrop-blur-md"
+            onClick={onClose}
+          />
 
           {/* card */}
           <motion.div
