@@ -4,6 +4,7 @@ import {
   ArrowSquareOutIcon,
   CheckIcon,
   CopyIcon,
+  DownloadSimpleIcon,
   FolderOpenIcon,
   TerminalIcon,
   XIcon,
@@ -15,6 +16,7 @@ import { cn } from "@/lib/utils";
 type Props = {
   open: boolean;
   onClose: () => void;
+  downloadHref: string;
 };
 
 const CMD = "xattr -dr com.apple.quarantine /Applications/postab.app";
@@ -42,19 +44,38 @@ const steps = [
   },
 ] as const;
 
-export const InstallModal = ({ open, onClose }: Props) => {
+export const InstallModal = ({ open, onClose, downloadHref }: Props) => {
   const reduce = useReducedMotion();
   const [copied, setCopied] = useState(false);
+  const [dlState, setDlState] = useState<"idle" | "pending" | "started">("idle");
   const overlayRef = useRef<HTMLDivElement>(null);
-  const timer = useRef<ReturnType<typeof setTimeout>>(null);
+  const copyTimer = useRef<ReturnType<typeof setTimeout>>(null);
+  const dlTimer = useRef<ReturnType<typeof setTimeout>>(null);
 
-  const copy = useCallback(async () => {
-    await navigator.clipboard.writeText(CMD);
-    setCopied(true);
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => setCopied(false), 2000);
-  }, []);
+  // auto-download 1 s after modal opens
+  useEffect(() => {
+    if (!open) {
+      setDlState("idle");
+      return;
+    }
 
+    setDlState("pending");
+    dlTimer.current = setTimeout(() => {
+      const a = document.createElement("a");
+      a.href = downloadHref;
+      a.setAttribute("download", "");
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setDlState("started");
+    }, 1000);
+
+    return () => {
+      if (dlTimer.current) clearTimeout(dlTimer.current);
+    };
+  }, [open, downloadHref]);
+
+  // keyboard + scroll lock
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -65,6 +86,13 @@ export const InstallModal = ({ open, onClose }: Props) => {
       document.body.style.overflow = "";
     };
   }, [open, onClose]);
+
+  const copy = useCallback(async () => {
+    await navigator.clipboard.writeText(CMD);
+    setCopied(true);
+    if (copyTimer.current) clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setCopied(false), 2000);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -94,26 +122,59 @@ export const InstallModal = ({ open, onClose }: Props) => {
           >
             {/* top bar */}
             <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <div className="grid gap-0.5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-                  getting started
-                </p>
-                <h2 className="font-sans text-base font-semibold text-foreground">
-                  Install postab
-                </h2>
+              <div className="flex items-center gap-3">
+                <div className="grid gap-0.5">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                    getting started
+                  </p>
+                  <h2 className="font-sans text-base font-semibold text-foreground">
+                    Install postab
+                  </h2>
+                </div>
+
+                {/* download status pill */}
+                <AnimatePresence mode="wait">
+                  {dlState === "pending" && (
+                    <motion.span
+                      key="pending"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.2 }}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-2 px-2.5 py-1 font-mono text-[10px] text-muted"
+                    >
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
+                      Preparing download…
+                    </motion.span>
+                  )}
+                  {dlState === "started" && (
+                    <motion.span
+                      key="started"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.2 }}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] text-emerald-400"
+                    >
+                      <DownloadSimpleIcon size={11} weight="bold" />
+                      Download started
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </div>
+
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Close"
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-border-strong hover:text-foreground"
+                className="ml-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border text-muted transition-colors hover:border-border-strong hover:text-foreground"
               >
                 <XIcon size={15} weight="bold" />
               </button>
             </div>
 
             {/* steps */}
-            <ol className="grid gap-px bg-border">
+            <ol className="bg-surface/90">
               {steps.map((step, i) => {
                 const Icon = step.icon;
                 const isLast = i === steps.length - 1;
@@ -121,18 +182,19 @@ export const InstallModal = ({ open, onClose }: Props) => {
                   <li
                     key={step.n}
                     className={cn(
-                      "grid grid-cols-[auto_1fr] gap-4 bg-surface/90 px-6 py-5",
+                      "grid grid-cols-[auto_1fr] gap-4 px-6 py-5",
                       i === 0 && "pt-6",
-                      isLast && "rounded-b-none pb-5",
+                      isLast && "pb-6",
+                      !isLast && "border-b border-border/40",
                     )}
                   >
-                    {/* numeral + line */}
+                    {/* numeral + connector */}
                     <div className="flex flex-col items-center gap-2 pt-0.5">
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full border border-border bg-surface-2 font-mono text-[11px] text-muted">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-surface-2 font-mono text-[11px] text-muted">
                         {step.n}
                       </span>
                       {!isLast && (
-                        <span className="w-px flex-1 bg-border" />
+                        <span className="w-px flex-1 bg-border/60" />
                       )}
                     </div>
 
@@ -152,14 +214,13 @@ export const InstallModal = ({ open, onClose }: Props) => {
                         {step.body}
                       </p>
 
-                      {/* terminal block — only on last step */}
                       {isLast && (
                         <div className="mt-1 flex items-stretch overflow-hidden rounded-lg border border-border bg-background/60">
                           <div className="flex flex-1 items-center gap-2 px-3.5 py-3">
-                            <span className="shrink-0 font-mono text-[11px] text-primary-soft select-none">
+                            <span className="shrink-0 select-none font-mono text-[11px] text-primary-soft">
                               $
                             </span>
-                            <code className="flex-1 font-mono text-[11px] leading-relaxed text-foreground/90 break-all">
+                            <code className="flex-1 break-all font-mono text-[11px] leading-relaxed text-foreground/90">
                               {CMD}
                             </code>
                           </div>

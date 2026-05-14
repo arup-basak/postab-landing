@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
-import { AppleIcon } from "@/components/ui/apple-icon";
+import { DownloadButton } from "@/components/ui/download-button";
 import { LogoMark } from "@/components/ui/logo";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { SITE } from "@/constants/site";
@@ -54,13 +54,7 @@ export const Nav = () => {
           ))}
         </nav>
 
-        <Link
-          href={SITE.downloadHref}
-          className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 font-sans text-[13px] font-semibold tracking-tight text-primary-ink transition-colors hover:bg-primary-soft"
-        >
-          <AppleIcon size={13} className="-mt-0.5" />
-          Download
-        </Link>
+        <DownloadButton label="Download" size="sm" />
       </div>
       <ScrollProgress />
     </motion.header>
