@@ -24,7 +24,7 @@
     },
   ],
   "vars": {
-    "LATEST_DMG_KEY": "Postab-latest.app",
-    "LATEST_DMG_FILENAME": "postab.app",
+    "LATEST_DMG_KEY": "Postab-latest.dmg",
+    "LATEST_DMG_FILENAME": "postab.dmg",
   },
 }
