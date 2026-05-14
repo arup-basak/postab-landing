@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { AppleIcon } from "@/components/ui/apple-icon";
+import { DownloadButton } from "@/components/ui/download-button";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { DOWNLOAD } from "@/constants/content";
@@ -32,13 +31,7 @@ export const Download = () => {
 
         <Reveal delay={0.14}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href={SITE.downloadHref}
-              className="group inline-flex items-center gap-2.5 rounded-lg bg-primary px-6 py-4 font-sans text-base font-semibold tracking-tight text-primary-ink shadow-[0_14px_40px_-14px_color-mix(in_oklab,var(--color-primary)_70%,transparent)] transition-colors hover:bg-primary-soft"
-            >
-              <AppleIcon size={18} className="-mt-0.5" />
-              {DOWNLOAD.cta.label}
-            </Link>
+            <DownloadButton label={DOWNLOAD.cta.label} size="lg" />
           </div>
         </Reveal>
 

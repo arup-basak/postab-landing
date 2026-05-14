@@ -1,12 +1,11 @@
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { HeroShowcase } from "@/components/sections/hero-showcase";
-import { AppleIcon } from "@/components/ui/apple-icon";
+import { DownloadButton } from "@/components/ui/download-button";
 import { PowerUserMark } from "@/components/ui/poweruser-mark";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { HERO } from "@/constants/content";
-import { SITE } from "@/constants/site";
 
 export const Hero = () => {
   return (
@@ -55,13 +54,7 @@ export const Hero = () => {
 
           <Reveal delay={0.18}>
             <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Link
-                href={SITE.downloadHref}
-                className="group inline-flex items-center gap-2.5 rounded-lg bg-primary px-5 py-3.5 font-sans text-sm font-semibold tracking-tight text-primary-ink shadow-[0_10px_30px_-10px_color-mix(in_oklab,var(--color-primary)_70%,transparent)] transition-colors hover:bg-primary-soft"
-              >
-                <AppleIcon size={16} className="-mt-0.5" />
-                {HERO.primaryCta.label}
-              </Link>
+              <DownloadButton label={HERO.primaryCta.label} size="md" />
               <Link
                 href={HERO.secondaryCta.href}
                 className="group inline-flex items-center gap-2 rounded-lg border border-border px-5 py-3.5 font-sans text-sm font-medium tracking-tight text-foreground transition-colors hover:border-border-strong"
